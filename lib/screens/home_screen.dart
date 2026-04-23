@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../models/product.dart'; // Certifique-se que este arquivo contém a classe 'Produto'
+import '../models/product.dart';
 import '../repositories/shopping_repository.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -11,7 +11,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final ShoppingRepository _repository = ShoppingRepository();
-  List<Produto> _products = []; // CORRIGIDO: de Product para Produto
+  List<Artigo> _products = []; // CORRIGIDO: de Produto para Artigo
 
   @override
   void initState() {
@@ -33,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Novo Produto'),
+        title: const Text('Novo Artigo'),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -58,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void _showRecordPurchaseDialog(Produto product) { // CORRIGIDO: de Product para Produto
+  void _showRecordPurchaseDialog(Artigo product) { // CORRIGIDO: Artigo
     final qtyController = TextEditingController();
     final priceController = TextEditingController();
 
@@ -97,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(title: const Text('Mercado Inteligente')),
       body: _products.isEmpty
-          ? const Center(child: Text('Nenhum produto cadastrado.'))
+          ? const Center(child: Text('Nenhum artigo cadastrado.'))
           : ListView.builder(
               itemCount: _products.length,
               itemBuilder: (context, index) {
@@ -106,13 +106,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: ListTile(
                     title: Text(product.name),
                     subtitle: Text(product.suggestedQuantity != null 
-                        ? 'Sugestão: ${product.suggestedQuantity!.toStringAsFixed(1)}' 
-                        : 'Sem dados'),
+                        ? 'Sugestão: ${product.suggestedQuantity!.toStringAsFixed(1)} ${product.unit}' 
+                        : 'Sem histórico'),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        IconButton(icon: const Icon(Icons.shopping_cart), onPressed: () => _showRecordPurchaseDialog(product)),
-                        IconButton(icon: const Icon(Icons.outbox), onPressed: () async {
+                        IconButton(icon: const Icon(Icons.shopping_cart, color: Colors.green), onPressed: () => _showRecordPurchaseDialog(product)),
+                        IconButton(icon: const Icon(Icons.outbox, color: Colors.red), onPressed: () async {
                           await _repository.markAsFinished(product.id);
                           _refreshProducts();
                         }),

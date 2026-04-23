@@ -4,7 +4,7 @@ import 'package:isar/isar.dart';
 part 'product.g.dart';
 
 @collection
-class Produto { // Mudei o nome aqui
+class Artigo { 
   Id id = Isar.autoIncrement;
 
   @Index(unique: true)

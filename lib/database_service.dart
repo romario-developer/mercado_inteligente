@@ -15,7 +15,7 @@ class DatabaseService {
     final dir = await getApplicationDocumentsDirectory();
     
     isar = await Isar.open(
-      [ProdutoSchema, ItemCompraSchema, EventoStockSchema], // NOMES NOVOS AQUI
+      [ArtigoSchema, ItemCompraSchema, EventoStockSchema], // CORRIGIDO
       directory: dir.path,
     );
   }

@@ -9,13 +9,13 @@ part of 'product.dart';
 // coverage:ignore-file
 // ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters, always_specify_types
 
-extension GetProdutoCollection on Isar {
-  IsarCollection<Produto> get produtos => this.collection();
+extension GetArtigoCollection on Isar {
+  IsarCollection<Artigo> get artigos => this.collection();
 }
 
-const ProdutoSchema = CollectionSchema(
-  name: r'Produto',
-  id: -1962595252623852481,
+const ArtigoSchema = CollectionSchema(
+  name: r'Artigo',
+  id: 8617419891327417065,
   properties: {
     r'name': PropertySchema(
       id: 0,
@@ -33,10 +33,10 @@ const ProdutoSchema = CollectionSchema(
       type: IsarType.string,
     )
   },
-  estimateSize: _produtoEstimateSize,
-  serialize: _produtoSerialize,
-  deserialize: _produtoDeserialize,
-  deserializeProp: _produtoDeserializeProp,
+  estimateSize: _artigoEstimateSize,
+  serialize: _artigoSerialize,
+  deserialize: _artigoDeserialize,
+  deserializeProp: _artigoDeserializeProp,
   idName: r'id',
   indexes: {
     r'name': IndexSchema(
@@ -55,14 +55,14 @@ const ProdutoSchema = CollectionSchema(
   },
   links: {},
   embeddedSchemas: {},
-  getId: _produtoGetId,
-  getLinks: _produtoGetLinks,
-  attach: _produtoAttach,
+  getId: _artigoGetId,
+  getLinks: _artigoGetLinks,
+  attach: _artigoAttach,
   version: '3.1.0+1',
 );
 
-int _produtoEstimateSize(
-  Produto object,
+int _artigoEstimateSize(
+  Artigo object,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
@@ -72,8 +72,8 @@ int _produtoEstimateSize(
   return bytesCount;
 }
 
-void _produtoSerialize(
-  Produto object,
+void _artigoSerialize(
+  Artigo object,
   IsarWriter writer,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
@@ -83,13 +83,13 @@ void _produtoSerialize(
   writer.writeString(offsets[2], object.unit);
 }
 
-Produto _produtoDeserialize(
+Artigo _artigoDeserialize(
   Id id,
   IsarReader reader,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  final object = Produto();
+  final object = Artigo();
   object.id = id;
   object.name = reader.readString(offsets[0]);
   object.suggestedQuantity = reader.readDoubleOrNull(offsets[1]);
@@ -97,7 +97,7 @@ Produto _produtoDeserialize(
   return object;
 }
 
-P _produtoDeserializeProp<P>(
+P _artigoDeserializeProp<P>(
   IsarReader reader,
   int propertyId,
   int offset,
@@ -115,24 +115,24 @@ P _produtoDeserializeProp<P>(
   }
 }
 
-Id _produtoGetId(Produto object) {
+Id _artigoGetId(Artigo object) {
   return object.id;
 }
 
-List<IsarLinkBase<dynamic>> _produtoGetLinks(Produto object) {
+List<IsarLinkBase<dynamic>> _artigoGetLinks(Artigo object) {
   return [];
 }
 
-void _produtoAttach(IsarCollection<dynamic> col, Id id, Produto object) {
+void _artigoAttach(IsarCollection<dynamic> col, Id id, Artigo object) {
   object.id = id;
 }
 
-extension ProdutoByIndex on IsarCollection<Produto> {
-  Future<Produto?> getByName(String name) {
+extension ArtigoByIndex on IsarCollection<Artigo> {
+  Future<Artigo?> getByName(String name) {
     return getByIndex(r'name', [name]);
   }
 
-  Produto? getByNameSync(String name) {
+  Artigo? getByNameSync(String name) {
     return getByIndexSync(r'name', [name]);
   }
 
@@ -144,12 +144,12 @@ extension ProdutoByIndex on IsarCollection<Produto> {
     return deleteByIndexSync(r'name', [name]);
   }
 
-  Future<List<Produto?>> getAllByName(List<String> nameValues) {
+  Future<List<Artigo?>> getAllByName(List<String> nameValues) {
     final values = nameValues.map((e) => [e]).toList();
     return getAllByIndex(r'name', values);
   }
 
-  List<Produto?> getAllByNameSync(List<String> nameValues) {
+  List<Artigo?> getAllByNameSync(List<String> nameValues) {
     final values = nameValues.map((e) => [e]).toList();
     return getAllByIndexSync(r'name', values);
   }
@@ -164,33 +164,33 @@ extension ProdutoByIndex on IsarCollection<Produto> {
     return deleteAllByIndexSync(r'name', values);
   }
 
-  Future<Id> putByName(Produto object) {
+  Future<Id> putByName(Artigo object) {
     return putByIndex(r'name', object);
   }
 
-  Id putByNameSync(Produto object, {bool saveLinks = true}) {
+  Id putByNameSync(Artigo object, {bool saveLinks = true}) {
     return putByIndexSync(r'name', object, saveLinks: saveLinks);
   }
 
-  Future<List<Id>> putAllByName(List<Produto> objects) {
+  Future<List<Id>> putAllByName(List<Artigo> objects) {
     return putAllByIndex(r'name', objects);
   }
 
-  List<Id> putAllByNameSync(List<Produto> objects, {bool saveLinks = true}) {
+  List<Id> putAllByNameSync(List<Artigo> objects, {bool saveLinks = true}) {
     return putAllByIndexSync(r'name', objects, saveLinks: saveLinks);
   }
 }
 
-extension ProdutoQueryWhereSort on QueryBuilder<Produto, Produto, QWhere> {
-  QueryBuilder<Produto, Produto, QAfterWhere> anyId() {
+extension ArtigoQueryWhereSort on QueryBuilder<Artigo, Artigo, QWhere> {
+  QueryBuilder<Artigo, Artigo, QAfterWhere> anyId() {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(const IdWhereClause.any());
     });
   }
 }
 
-extension ProdutoQueryWhere on QueryBuilder<Produto, Produto, QWhereClause> {
-  QueryBuilder<Produto, Produto, QAfterWhereClause> idEqualTo(Id id) {
+extension ArtigoQueryWhere on QueryBuilder<Artigo, Artigo, QWhereClause> {
+  QueryBuilder<Artigo, Artigo, QAfterWhereClause> idEqualTo(Id id) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IdWhereClause.between(
         lower: id,
@@ -199,7 +199,7 @@ extension ProdutoQueryWhere on QueryBuilder<Produto, Produto, QWhereClause> {
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterWhereClause> idNotEqualTo(Id id) {
+  QueryBuilder<Artigo, Artigo, QAfterWhereClause> idNotEqualTo(Id id) {
     return QueryBuilder.apply(this, (query) {
       if (query.whereSort == Sort.asc) {
         return query
@@ -221,7 +221,7 @@ extension ProdutoQueryWhere on QueryBuilder<Produto, Produto, QWhereClause> {
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterWhereClause> idGreaterThan(Id id,
+  QueryBuilder<Artigo, Artigo, QAfterWhereClause> idGreaterThan(Id id,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
@@ -230,7 +230,7 @@ extension ProdutoQueryWhere on QueryBuilder<Produto, Produto, QWhereClause> {
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterWhereClause> idLessThan(Id id,
+  QueryBuilder<Artigo, Artigo, QAfterWhereClause> idLessThan(Id id,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
@@ -239,7 +239,7 @@ extension ProdutoQueryWhere on QueryBuilder<Produto, Produto, QWhereClause> {
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterWhereClause> idBetween(
+  QueryBuilder<Artigo, Artigo, QAfterWhereClause> idBetween(
     Id lowerId,
     Id upperId, {
     bool includeLower = true,
@@ -255,7 +255,7 @@ extension ProdutoQueryWhere on QueryBuilder<Produto, Produto, QWhereClause> {
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterWhereClause> nameEqualTo(String name) {
+  QueryBuilder<Artigo, Artigo, QAfterWhereClause> nameEqualTo(String name) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IndexWhereClause.equalTo(
         indexName: r'name',
@@ -264,8 +264,7 @@ extension ProdutoQueryWhere on QueryBuilder<Produto, Produto, QWhereClause> {
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterWhereClause> nameNotEqualTo(
-      String name) {
+  QueryBuilder<Artigo, Artigo, QAfterWhereClause> nameNotEqualTo(String name) {
     return QueryBuilder.apply(this, (query) {
       if (query.whereSort == Sort.asc) {
         return query
@@ -300,9 +299,8 @@ extension ProdutoQueryWhere on QueryBuilder<Produto, Produto, QWhereClause> {
   }
 }
 
-extension ProdutoQueryFilter
-    on QueryBuilder<Produto, Produto, QFilterCondition> {
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> idEqualTo(Id value) {
+extension ArtigoQueryFilter on QueryBuilder<Artigo, Artigo, QFilterCondition> {
+  QueryBuilder<Artigo, Artigo, QAfterFilterCondition> idEqualTo(Id value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'id',
@@ -311,7 +309,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> idGreaterThan(
+  QueryBuilder<Artigo, Artigo, QAfterFilterCondition> idGreaterThan(
     Id value, {
     bool include = false,
   }) {
@@ -324,7 +322,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> idLessThan(
+  QueryBuilder<Artigo, Artigo, QAfterFilterCondition> idLessThan(
     Id value, {
     bool include = false,
   }) {
@@ -337,7 +335,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> idBetween(
+  QueryBuilder<Artigo, Artigo, QAfterFilterCondition> idBetween(
     Id lower,
     Id upper, {
     bool includeLower = true,
@@ -354,7 +352,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> nameEqualTo(
+  QueryBuilder<Artigo, Artigo, QAfterFilterCondition> nameEqualTo(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -367,7 +365,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> nameGreaterThan(
+  QueryBuilder<Artigo, Artigo, QAfterFilterCondition> nameGreaterThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -382,7 +380,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> nameLessThan(
+  QueryBuilder<Artigo, Artigo, QAfterFilterCondition> nameLessThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -397,7 +395,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> nameBetween(
+  QueryBuilder<Artigo, Artigo, QAfterFilterCondition> nameBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -416,7 +414,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> nameStartsWith(
+  QueryBuilder<Artigo, Artigo, QAfterFilterCondition> nameStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -429,7 +427,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> nameEndsWith(
+  QueryBuilder<Artigo, Artigo, QAfterFilterCondition> nameEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -442,8 +440,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> nameContains(
-      String value,
+  QueryBuilder<Artigo, Artigo, QAfterFilterCondition> nameContains(String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
@@ -454,7 +451,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> nameMatches(
+  QueryBuilder<Artigo, Artigo, QAfterFilterCondition> nameMatches(
       String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -466,7 +463,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> nameIsEmpty() {
+  QueryBuilder<Artigo, Artigo, QAfterFilterCondition> nameIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'name',
@@ -475,7 +472,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> nameIsNotEmpty() {
+  QueryBuilder<Artigo, Artigo, QAfterFilterCondition> nameIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'name',
@@ -484,7 +481,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
+  QueryBuilder<Artigo, Artigo, QAfterFilterCondition>
       suggestedQuantityIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
@@ -493,7 +490,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
+  QueryBuilder<Artigo, Artigo, QAfterFilterCondition>
       suggestedQuantityIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
@@ -502,8 +499,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      suggestedQuantityEqualTo(
+  QueryBuilder<Artigo, Artigo, QAfterFilterCondition> suggestedQuantityEqualTo(
     double? value, {
     double epsilon = Query.epsilon,
   }) {
@@ -516,7 +512,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
+  QueryBuilder<Artigo, Artigo, QAfterFilterCondition>
       suggestedQuantityGreaterThan(
     double? value, {
     bool include = false,
@@ -532,8 +528,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      suggestedQuantityLessThan(
+  QueryBuilder<Artigo, Artigo, QAfterFilterCondition> suggestedQuantityLessThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
@@ -548,8 +543,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      suggestedQuantityBetween(
+  QueryBuilder<Artigo, Artigo, QAfterFilterCondition> suggestedQuantityBetween(
     double? lower,
     double? upper, {
     bool includeLower = true,
@@ -568,7 +562,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> unitEqualTo(
+  QueryBuilder<Artigo, Artigo, QAfterFilterCondition> unitEqualTo(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -581,7 +575,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> unitGreaterThan(
+  QueryBuilder<Artigo, Artigo, QAfterFilterCondition> unitGreaterThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -596,7 +590,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> unitLessThan(
+  QueryBuilder<Artigo, Artigo, QAfterFilterCondition> unitLessThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -611,7 +605,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> unitBetween(
+  QueryBuilder<Artigo, Artigo, QAfterFilterCondition> unitBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -630,7 +624,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> unitStartsWith(
+  QueryBuilder<Artigo, Artigo, QAfterFilterCondition> unitStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -643,7 +637,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> unitEndsWith(
+  QueryBuilder<Artigo, Artigo, QAfterFilterCondition> unitEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -656,8 +650,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> unitContains(
-      String value,
+  QueryBuilder<Artigo, Artigo, QAfterFilterCondition> unitContains(String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
@@ -668,7 +661,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> unitMatches(
+  QueryBuilder<Artigo, Artigo, QAfterFilterCondition> unitMatches(
       String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -680,7 +673,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> unitIsEmpty() {
+  QueryBuilder<Artigo, Artigo, QAfterFilterCondition> unitIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'unit',
@@ -689,7 +682,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> unitIsNotEmpty() {
+  QueryBuilder<Artigo, Artigo, QAfterFilterCondition> unitIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'unit',
@@ -699,117 +692,113 @@ extension ProdutoQueryFilter
   }
 }
 
-extension ProdutoQueryObject
-    on QueryBuilder<Produto, Produto, QFilterCondition> {}
+extension ArtigoQueryObject on QueryBuilder<Artigo, Artigo, QFilterCondition> {}
 
-extension ProdutoQueryLinks
-    on QueryBuilder<Produto, Produto, QFilterCondition> {}
+extension ArtigoQueryLinks on QueryBuilder<Artigo, Artigo, QFilterCondition> {}
 
-extension ProdutoQuerySortBy on QueryBuilder<Produto, Produto, QSortBy> {
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByName() {
+extension ArtigoQuerySortBy on QueryBuilder<Artigo, Artigo, QSortBy> {
+  QueryBuilder<Artigo, Artigo, QAfterSortBy> sortByName() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'name', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByNameDesc() {
+  QueryBuilder<Artigo, Artigo, QAfterSortBy> sortByNameDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'name', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortBySuggestedQuantity() {
+  QueryBuilder<Artigo, Artigo, QAfterSortBy> sortBySuggestedQuantity() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'suggestedQuantity', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortBySuggestedQuantityDesc() {
+  QueryBuilder<Artigo, Artigo, QAfterSortBy> sortBySuggestedQuantityDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'suggestedQuantity', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByUnit() {
+  QueryBuilder<Artigo, Artigo, QAfterSortBy> sortByUnit() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'unit', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByUnitDesc() {
+  QueryBuilder<Artigo, Artigo, QAfterSortBy> sortByUnitDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'unit', Sort.desc);
     });
   }
 }
 
-extension ProdutoQuerySortThenBy
-    on QueryBuilder<Produto, Produto, QSortThenBy> {
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenById() {
+extension ArtigoQuerySortThenBy on QueryBuilder<Artigo, Artigo, QSortThenBy> {
+  QueryBuilder<Artigo, Artigo, QAfterSortBy> thenById() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByIdDesc() {
+  QueryBuilder<Artigo, Artigo, QAfterSortBy> thenByIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByName() {
+  QueryBuilder<Artigo, Artigo, QAfterSortBy> thenByName() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'name', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByNameDesc() {
+  QueryBuilder<Artigo, Artigo, QAfterSortBy> thenByNameDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'name', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenBySuggestedQuantity() {
+  QueryBuilder<Artigo, Artigo, QAfterSortBy> thenBySuggestedQuantity() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'suggestedQuantity', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenBySuggestedQuantityDesc() {
+  QueryBuilder<Artigo, Artigo, QAfterSortBy> thenBySuggestedQuantityDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'suggestedQuantity', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByUnit() {
+  QueryBuilder<Artigo, Artigo, QAfterSortBy> thenByUnit() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'unit', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByUnitDesc() {
+  QueryBuilder<Artigo, Artigo, QAfterSortBy> thenByUnitDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'unit', Sort.desc);
     });
   }
 }
 
-extension ProdutoQueryWhereDistinct
-    on QueryBuilder<Produto, Produto, QDistinct> {
-  QueryBuilder<Produto, Produto, QDistinct> distinctByName(
+extension ArtigoQueryWhereDistinct on QueryBuilder<Artigo, Artigo, QDistinct> {
+  QueryBuilder<Artigo, Artigo, QDistinct> distinctByName(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'name', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<Produto, Produto, QDistinct> distinctBySuggestedQuantity() {
+  QueryBuilder<Artigo, Artigo, QDistinct> distinctBySuggestedQuantity() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'suggestedQuantity');
     });
   }
 
-  QueryBuilder<Produto, Produto, QDistinct> distinctByUnit(
+  QueryBuilder<Artigo, Artigo, QDistinct> distinctByUnit(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'unit', caseSensitive: caseSensitive);
@@ -817,27 +806,26 @@ extension ProdutoQueryWhereDistinct
   }
 }
 
-extension ProdutoQueryProperty
-    on QueryBuilder<Produto, Produto, QQueryProperty> {
-  QueryBuilder<Produto, int, QQueryOperations> idProperty() {
+extension ArtigoQueryProperty on QueryBuilder<Artigo, Artigo, QQueryProperty> {
+  QueryBuilder<Artigo, int, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'id');
     });
   }
 
-  QueryBuilder<Produto, String, QQueryOperations> nameProperty() {
+  QueryBuilder<Artigo, String, QQueryOperations> nameProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'name');
     });
   }
 
-  QueryBuilder<Produto, double?, QQueryOperations> suggestedQuantityProperty() {
+  QueryBuilder<Artigo, double?, QQueryOperations> suggestedQuantityProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'suggestedQuantity');
     });
   }
 
-  QueryBuilder<Produto, String, QQueryOperations> unitProperty() {
+  QueryBuilder<Artigo, String, QQueryOperations> unitProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'unit');
     });
