@@ -12,11 +12,10 @@ class DatabaseService {
   DatabaseService._internal();
 
   Future<void> init() async {
-    // Na Web, o path_provider não é necessário, o Isar resolve sozinho
     final dir = await getApplicationDocumentsDirectory();
     
     isar = await Isar.open(
-      [ProductSchema, PurchaseItemSchema, StockEventSchema],
+      [ProdutoSchema, ItemCompraSchema, EventoStockSchema], // NOMES NOVOS AQUI
       directory: dir.path,
     );
   }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../models/product.dart';
+import '../models/product.dart'; // Certifique-se que este arquivo contém a classe 'Produto'
 import '../repositories/shopping_repository.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -11,7 +11,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final ShoppingRepository _repository = ShoppingRepository();
-  List<Product> _products = [];
+  List<Produto> _products = []; // CORRIGIDO: de Product para Produto
 
   @override
   void initState() {
@@ -26,7 +26,6 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  // Modal para adicionar novo produto
   void _showAddProductDialog() {
     final nameController = TextEditingController();
     final unitController = TextEditingController(text: 'un');
@@ -38,16 +37,18 @@ class _HomeScreenState extends State<HomeScreen> {
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            TextField(controller: nameController, decoration: const InputDecoration(labelText: 'Nome (ex: Açúcar)')),
-            TextField(controller: unitController, decoration: const InputDecoration(labelText: 'Unidade (ex: kg)')),
+            TextField(controller: nameController, decoration: const InputDecoration(labelText: 'Nome')),
+            TextField(controller: unitController, decoration: const InputDecoration(labelText: 'Unidade')),
           ],
         ),
         actions: [
           TextButton(onPressed: () => Navigator.pop(context), child: const Text('Cancelar')),
           ElevatedButton(
             onPressed: () async {
-              await _repository.addProduct(nameController.text, unitController.text);
-              _refreshProducts();
+              if (nameController.text.isNotEmpty) {
+                await _repository.addProduct(nameController.text, unitController.text);
+                _refreshProducts();
+              }
               Navigator.pop(context);
             },
             child: const Text('Salvar'),
@@ -57,8 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // Modal para registrar que comprou (gera o baseline para o cálculo)
-  void _showRecordPurchaseDialog(Product product) {
+  void _showRecordPurchaseDialog(Produto product) { // CORRIGIDO: de Product para Produto
     final qtyController = TextEditingController();
     final priceController = TextEditingController();
 
@@ -79,8 +79,10 @@ class _HomeScreenState extends State<HomeScreen> {
             onPressed: () async {
               final qty = double.tryParse(qtyController.text) ?? 0;
               final price = double.tryParse(priceController.text) ?? 0;
-              await _repository.recordPurchase(product.id, qty, price);
-              _refreshProducts();
+              if (qty > 0) {
+                await _repository.recordPurchase(product.id, qty, price);
+                _refreshProducts();
+              }
               Navigator.pop(context);
             },
             child: const Text('Confirmar'),
@@ -93,52 +95,34 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Mercado Inteligente'),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-      ),
+      appBar: AppBar(title: const Text('Mercado Inteligente')),
       body: _products.isEmpty
           ? const Center(child: Text('Nenhum produto cadastrado.'))
           : ListView.builder(
-              itemCount: _products.size,
+              itemCount: _products.length,
               itemBuilder: (context, index) {
                 final product = _products[index];
                 return Card(
-                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: ListTile(
-                    title: Text(product.name, style: const TextStyle(fontWeight: FontWeight.bold)),
-                    subtitle: product.suggestedQuantity != null
-                        ? Text('Sugestão p/ mês: ${product.suggestedQuantity!.toStringAsFixed(1)} ${product.unit}')
-                        : const Text('Aguardando histórico de consumo...'),
+                    title: Text(product.name),
+                    subtitle: Text(product.suggestedQuantity != null 
+                        ? 'Sugestão: ${product.suggestedQuantity!.toStringAsFixed(1)}' 
+                        : 'Sem dados'),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        IconButton(
-                          icon: const Icon(Icons.shopping_cart, color: Colors.green),
-                          onPressed: () => _showRecordPurchaseDialog(product),
-                          tooltip: 'Registrar Compra',
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.outbox, color: Colors.red),
-                          onPressed: () async {
-                            await _repository.markAsFinished(product.id);
-                            _refreshProducts();
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text('${product.name} marcado como esgotado!')),
-                            );
-                          },
-                          tooltip: 'Acabou!',
-                        ),
+                        IconButton(icon: const Icon(Icons.shopping_cart), onPressed: () => _showRecordPurchaseDialog(product)),
+                        IconButton(icon: const Icon(Icons.outbox), onPressed: () async {
+                          await _repository.markAsFinished(product.id);
+                          _refreshProducts();
+                        }),
                       ],
                     ),
                   ),
                 );
               },
             ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _showAddProductDialog,
-        child: const Icon(Icons.add),
-      ),
+      floatingActionButton: FloatingActionButton(onPressed: _showAddProductDialog, child: const Icon(Icons.add)),
     );
   }
 }

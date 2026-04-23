@@ -1,9 +1,10 @@
+// ignore_for_file: type=lint
 import 'package:isar/isar.dart';
 
 part 'purchase_item.g.dart';
 
 @collection
-class PurchaseItem {
+class ItemCompra { // Mudei o nome aqui
   Id id = Isar.autoIncrement;
   
   late int productId;

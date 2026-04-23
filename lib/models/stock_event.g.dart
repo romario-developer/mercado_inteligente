@@ -9,13 +9,13 @@ part of 'stock_event.dart';
 // coverage:ignore-file
 // ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters, always_specify_types
 
-extension GetStockEventCollection on Isar {
-  IsarCollection<StockEvent> get stockEvents => this.collection();
+extension GetEventoStockCollection on Isar {
+  IsarCollection<EventoStock> get eventoStocks => this.collection();
 }
 
-const StockEventSchema = CollectionSchema(
-  name: r'StockEvent',
-  id: 91906734120826028,
+const EventoStockSchema = CollectionSchema(
+  name: r'EventoStock',
+  id: 4038691043353875876,
   properties: {
     r'dateFinished': PropertySchema(
       id: 0,
@@ -33,22 +33,22 @@ const StockEventSchema = CollectionSchema(
       type: IsarType.double,
     )
   },
-  estimateSize: _stockEventEstimateSize,
-  serialize: _stockEventSerialize,
-  deserialize: _stockEventDeserialize,
-  deserializeProp: _stockEventDeserializeProp,
+  estimateSize: _eventoStockEstimateSize,
+  serialize: _eventoStockSerialize,
+  deserialize: _eventoStockDeserialize,
+  deserializeProp: _eventoStockDeserializeProp,
   idName: r'id',
   indexes: {},
   links: {},
   embeddedSchemas: {},
-  getId: _stockEventGetId,
-  getLinks: _stockEventGetLinks,
-  attach: _stockEventAttach,
+  getId: _eventoStockGetId,
+  getLinks: _eventoStockGetLinks,
+  attach: _eventoStockAttach,
   version: '3.1.0+1',
 );
 
-int _stockEventEstimateSize(
-  StockEvent object,
+int _eventoStockEstimateSize(
+  EventoStock object,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
@@ -56,8 +56,8 @@ int _stockEventEstimateSize(
   return bytesCount;
 }
 
-void _stockEventSerialize(
-  StockEvent object,
+void _eventoStockSerialize(
+  EventoStock object,
   IsarWriter writer,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
@@ -67,13 +67,13 @@ void _stockEventSerialize(
   writer.writeDouble(offsets[2], object.quantityThatFinished);
 }
 
-StockEvent _stockEventDeserialize(
+EventoStock _eventoStockDeserialize(
   Id id,
   IsarReader reader,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  final object = StockEvent();
+  final object = EventoStock();
   object.dateFinished = reader.readDateTime(offsets[0]);
   object.id = id;
   object.productId = reader.readLong(offsets[1]);
@@ -81,7 +81,7 @@ StockEvent _stockEventDeserialize(
   return object;
 }
 
-P _stockEventDeserializeProp<P>(
+P _eventoStockDeserializeProp<P>(
   IsarReader reader,
   int propertyId,
   int offset,
@@ -99,30 +99,31 @@ P _stockEventDeserializeProp<P>(
   }
 }
 
-Id _stockEventGetId(StockEvent object) {
+Id _eventoStockGetId(EventoStock object) {
   return object.id;
 }
 
-List<IsarLinkBase<dynamic>> _stockEventGetLinks(StockEvent object) {
+List<IsarLinkBase<dynamic>> _eventoStockGetLinks(EventoStock object) {
   return [];
 }
 
-void _stockEventAttach(IsarCollection<dynamic> col, Id id, StockEvent object) {
+void _eventoStockAttach(
+    IsarCollection<dynamic> col, Id id, EventoStock object) {
   object.id = id;
 }
 
-extension StockEventQueryWhereSort
-    on QueryBuilder<StockEvent, StockEvent, QWhere> {
-  QueryBuilder<StockEvent, StockEvent, QAfterWhere> anyId() {
+extension EventoStockQueryWhereSort
+    on QueryBuilder<EventoStock, EventoStock, QWhere> {
+  QueryBuilder<EventoStock, EventoStock, QAfterWhere> anyId() {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(const IdWhereClause.any());
     });
   }
 }
 
-extension StockEventQueryWhere
-    on QueryBuilder<StockEvent, StockEvent, QWhereClause> {
-  QueryBuilder<StockEvent, StockEvent, QAfterWhereClause> idEqualTo(Id id) {
+extension EventoStockQueryWhere
+    on QueryBuilder<EventoStock, EventoStock, QWhereClause> {
+  QueryBuilder<EventoStock, EventoStock, QAfterWhereClause> idEqualTo(Id id) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IdWhereClause.between(
         lower: id,
@@ -131,7 +132,8 @@ extension StockEventQueryWhere
     });
   }
 
-  QueryBuilder<StockEvent, StockEvent, QAfterWhereClause> idNotEqualTo(Id id) {
+  QueryBuilder<EventoStock, EventoStock, QAfterWhereClause> idNotEqualTo(
+      Id id) {
     return QueryBuilder.apply(this, (query) {
       if (query.whereSort == Sort.asc) {
         return query
@@ -153,7 +155,7 @@ extension StockEventQueryWhere
     });
   }
 
-  QueryBuilder<StockEvent, StockEvent, QAfterWhereClause> idGreaterThan(Id id,
+  QueryBuilder<EventoStock, EventoStock, QAfterWhereClause> idGreaterThan(Id id,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
@@ -162,7 +164,7 @@ extension StockEventQueryWhere
     });
   }
 
-  QueryBuilder<StockEvent, StockEvent, QAfterWhereClause> idLessThan(Id id,
+  QueryBuilder<EventoStock, EventoStock, QAfterWhereClause> idLessThan(Id id,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
@@ -171,7 +173,7 @@ extension StockEventQueryWhere
     });
   }
 
-  QueryBuilder<StockEvent, StockEvent, QAfterWhereClause> idBetween(
+  QueryBuilder<EventoStock, EventoStock, QAfterWhereClause> idBetween(
     Id lowerId,
     Id upperId, {
     bool includeLower = true,
@@ -188,9 +190,9 @@ extension StockEventQueryWhere
   }
 }
 
-extension StockEventQueryFilter
-    on QueryBuilder<StockEvent, StockEvent, QFilterCondition> {
-  QueryBuilder<StockEvent, StockEvent, QAfterFilterCondition>
+extension EventoStockQueryFilter
+    on QueryBuilder<EventoStock, EventoStock, QFilterCondition> {
+  QueryBuilder<EventoStock, EventoStock, QAfterFilterCondition>
       dateFinishedEqualTo(DateTime value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
@@ -200,7 +202,7 @@ extension StockEventQueryFilter
     });
   }
 
-  QueryBuilder<StockEvent, StockEvent, QAfterFilterCondition>
+  QueryBuilder<EventoStock, EventoStock, QAfterFilterCondition>
       dateFinishedGreaterThan(
     DateTime value, {
     bool include = false,
@@ -214,7 +216,7 @@ extension StockEventQueryFilter
     });
   }
 
-  QueryBuilder<StockEvent, StockEvent, QAfterFilterCondition>
+  QueryBuilder<EventoStock, EventoStock, QAfterFilterCondition>
       dateFinishedLessThan(
     DateTime value, {
     bool include = false,
@@ -228,7 +230,7 @@ extension StockEventQueryFilter
     });
   }
 
-  QueryBuilder<StockEvent, StockEvent, QAfterFilterCondition>
+  QueryBuilder<EventoStock, EventoStock, QAfterFilterCondition>
       dateFinishedBetween(
     DateTime lower,
     DateTime upper, {
@@ -246,7 +248,7 @@ extension StockEventQueryFilter
     });
   }
 
-  QueryBuilder<StockEvent, StockEvent, QAfterFilterCondition> idEqualTo(
+  QueryBuilder<EventoStock, EventoStock, QAfterFilterCondition> idEqualTo(
       Id value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
@@ -256,7 +258,7 @@ extension StockEventQueryFilter
     });
   }
 
-  QueryBuilder<StockEvent, StockEvent, QAfterFilterCondition> idGreaterThan(
+  QueryBuilder<EventoStock, EventoStock, QAfterFilterCondition> idGreaterThan(
     Id value, {
     bool include = false,
   }) {
@@ -269,7 +271,7 @@ extension StockEventQueryFilter
     });
   }
 
-  QueryBuilder<StockEvent, StockEvent, QAfterFilterCondition> idLessThan(
+  QueryBuilder<EventoStock, EventoStock, QAfterFilterCondition> idLessThan(
     Id value, {
     bool include = false,
   }) {
@@ -282,7 +284,7 @@ extension StockEventQueryFilter
     });
   }
 
-  QueryBuilder<StockEvent, StockEvent, QAfterFilterCondition> idBetween(
+  QueryBuilder<EventoStock, EventoStock, QAfterFilterCondition> idBetween(
     Id lower,
     Id upper, {
     bool includeLower = true,
@@ -299,8 +301,8 @@ extension StockEventQueryFilter
     });
   }
 
-  QueryBuilder<StockEvent, StockEvent, QAfterFilterCondition> productIdEqualTo(
-      int value) {
+  QueryBuilder<EventoStock, EventoStock, QAfterFilterCondition>
+      productIdEqualTo(int value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'productId',
@@ -309,7 +311,7 @@ extension StockEventQueryFilter
     });
   }
 
-  QueryBuilder<StockEvent, StockEvent, QAfterFilterCondition>
+  QueryBuilder<EventoStock, EventoStock, QAfterFilterCondition>
       productIdGreaterThan(
     int value, {
     bool include = false,
@@ -323,7 +325,8 @@ extension StockEventQueryFilter
     });
   }
 
-  QueryBuilder<StockEvent, StockEvent, QAfterFilterCondition> productIdLessThan(
+  QueryBuilder<EventoStock, EventoStock, QAfterFilterCondition>
+      productIdLessThan(
     int value, {
     bool include = false,
   }) {
@@ -336,7 +339,8 @@ extension StockEventQueryFilter
     });
   }
 
-  QueryBuilder<StockEvent, StockEvent, QAfterFilterCondition> productIdBetween(
+  QueryBuilder<EventoStock, EventoStock, QAfterFilterCondition>
+      productIdBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -353,7 +357,7 @@ extension StockEventQueryFilter
     });
   }
 
-  QueryBuilder<StockEvent, StockEvent, QAfterFilterCondition>
+  QueryBuilder<EventoStock, EventoStock, QAfterFilterCondition>
       quantityThatFinishedEqualTo(
     double value, {
     double epsilon = Query.epsilon,
@@ -367,7 +371,7 @@ extension StockEventQueryFilter
     });
   }
 
-  QueryBuilder<StockEvent, StockEvent, QAfterFilterCondition>
+  QueryBuilder<EventoStock, EventoStock, QAfterFilterCondition>
       quantityThatFinishedGreaterThan(
     double value, {
     bool include = false,
@@ -383,7 +387,7 @@ extension StockEventQueryFilter
     });
   }
 
-  QueryBuilder<StockEvent, StockEvent, QAfterFilterCondition>
+  QueryBuilder<EventoStock, EventoStock, QAfterFilterCondition>
       quantityThatFinishedLessThan(
     double value, {
     bool include = false,
@@ -399,7 +403,7 @@ extension StockEventQueryFilter
     });
   }
 
-  QueryBuilder<StockEvent, StockEvent, QAfterFilterCondition>
+  QueryBuilder<EventoStock, EventoStock, QAfterFilterCondition>
       quantityThatFinishedBetween(
     double lower,
     double upper, {
@@ -420,46 +424,47 @@ extension StockEventQueryFilter
   }
 }
 
-extension StockEventQueryObject
-    on QueryBuilder<StockEvent, StockEvent, QFilterCondition> {}
+extension EventoStockQueryObject
+    on QueryBuilder<EventoStock, EventoStock, QFilterCondition> {}
 
-extension StockEventQueryLinks
-    on QueryBuilder<StockEvent, StockEvent, QFilterCondition> {}
+extension EventoStockQueryLinks
+    on QueryBuilder<EventoStock, EventoStock, QFilterCondition> {}
 
-extension StockEventQuerySortBy
-    on QueryBuilder<StockEvent, StockEvent, QSortBy> {
-  QueryBuilder<StockEvent, StockEvent, QAfterSortBy> sortByDateFinished() {
+extension EventoStockQuerySortBy
+    on QueryBuilder<EventoStock, EventoStock, QSortBy> {
+  QueryBuilder<EventoStock, EventoStock, QAfterSortBy> sortByDateFinished() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'dateFinished', Sort.asc);
     });
   }
 
-  QueryBuilder<StockEvent, StockEvent, QAfterSortBy> sortByDateFinishedDesc() {
+  QueryBuilder<EventoStock, EventoStock, QAfterSortBy>
+      sortByDateFinishedDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'dateFinished', Sort.desc);
     });
   }
 
-  QueryBuilder<StockEvent, StockEvent, QAfterSortBy> sortByProductId() {
+  QueryBuilder<EventoStock, EventoStock, QAfterSortBy> sortByProductId() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'productId', Sort.asc);
     });
   }
 
-  QueryBuilder<StockEvent, StockEvent, QAfterSortBy> sortByProductIdDesc() {
+  QueryBuilder<EventoStock, EventoStock, QAfterSortBy> sortByProductIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'productId', Sort.desc);
     });
   }
 
-  QueryBuilder<StockEvent, StockEvent, QAfterSortBy>
+  QueryBuilder<EventoStock, EventoStock, QAfterSortBy>
       sortByQuantityThatFinished() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'quantityThatFinished', Sort.asc);
     });
   }
 
-  QueryBuilder<StockEvent, StockEvent, QAfterSortBy>
+  QueryBuilder<EventoStock, EventoStock, QAfterSortBy>
       sortByQuantityThatFinishedDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'quantityThatFinished', Sort.desc);
@@ -467,52 +472,53 @@ extension StockEventQuerySortBy
   }
 }
 
-extension StockEventQuerySortThenBy
-    on QueryBuilder<StockEvent, StockEvent, QSortThenBy> {
-  QueryBuilder<StockEvent, StockEvent, QAfterSortBy> thenByDateFinished() {
+extension EventoStockQuerySortThenBy
+    on QueryBuilder<EventoStock, EventoStock, QSortThenBy> {
+  QueryBuilder<EventoStock, EventoStock, QAfterSortBy> thenByDateFinished() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'dateFinished', Sort.asc);
     });
   }
 
-  QueryBuilder<StockEvent, StockEvent, QAfterSortBy> thenByDateFinishedDesc() {
+  QueryBuilder<EventoStock, EventoStock, QAfterSortBy>
+      thenByDateFinishedDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'dateFinished', Sort.desc);
     });
   }
 
-  QueryBuilder<StockEvent, StockEvent, QAfterSortBy> thenById() {
+  QueryBuilder<EventoStock, EventoStock, QAfterSortBy> thenById() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.asc);
     });
   }
 
-  QueryBuilder<StockEvent, StockEvent, QAfterSortBy> thenByIdDesc() {
+  QueryBuilder<EventoStock, EventoStock, QAfterSortBy> thenByIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.desc);
     });
   }
 
-  QueryBuilder<StockEvent, StockEvent, QAfterSortBy> thenByProductId() {
+  QueryBuilder<EventoStock, EventoStock, QAfterSortBy> thenByProductId() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'productId', Sort.asc);
     });
   }
 
-  QueryBuilder<StockEvent, StockEvent, QAfterSortBy> thenByProductIdDesc() {
+  QueryBuilder<EventoStock, EventoStock, QAfterSortBy> thenByProductIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'productId', Sort.desc);
     });
   }
 
-  QueryBuilder<StockEvent, StockEvent, QAfterSortBy>
+  QueryBuilder<EventoStock, EventoStock, QAfterSortBy>
       thenByQuantityThatFinished() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'quantityThatFinished', Sort.asc);
     });
   }
 
-  QueryBuilder<StockEvent, StockEvent, QAfterSortBy>
+  QueryBuilder<EventoStock, EventoStock, QAfterSortBy>
       thenByQuantityThatFinishedDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'quantityThatFinished', Sort.desc);
@@ -520,21 +526,21 @@ extension StockEventQuerySortThenBy
   }
 }
 
-extension StockEventQueryWhereDistinct
-    on QueryBuilder<StockEvent, StockEvent, QDistinct> {
-  QueryBuilder<StockEvent, StockEvent, QDistinct> distinctByDateFinished() {
+extension EventoStockQueryWhereDistinct
+    on QueryBuilder<EventoStock, EventoStock, QDistinct> {
+  QueryBuilder<EventoStock, EventoStock, QDistinct> distinctByDateFinished() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'dateFinished');
     });
   }
 
-  QueryBuilder<StockEvent, StockEvent, QDistinct> distinctByProductId() {
+  QueryBuilder<EventoStock, EventoStock, QDistinct> distinctByProductId() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'productId');
     });
   }
 
-  QueryBuilder<StockEvent, StockEvent, QDistinct>
+  QueryBuilder<EventoStock, EventoStock, QDistinct>
       distinctByQuantityThatFinished() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'quantityThatFinished');
@@ -542,27 +548,27 @@ extension StockEventQueryWhereDistinct
   }
 }
 
-extension StockEventQueryProperty
-    on QueryBuilder<StockEvent, StockEvent, QQueryProperty> {
-  QueryBuilder<StockEvent, int, QQueryOperations> idProperty() {
+extension EventoStockQueryProperty
+    on QueryBuilder<EventoStock, EventoStock, QQueryProperty> {
+  QueryBuilder<EventoStock, int, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'id');
     });
   }
 
-  QueryBuilder<StockEvent, DateTime, QQueryOperations> dateFinishedProperty() {
+  QueryBuilder<EventoStock, DateTime, QQueryOperations> dateFinishedProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'dateFinished');
     });
   }
 
-  QueryBuilder<StockEvent, int, QQueryOperations> productIdProperty() {
+  QueryBuilder<EventoStock, int, QQueryOperations> productIdProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'productId');
     });
   }
 
-  QueryBuilder<StockEvent, double, QQueryOperations>
+  QueryBuilder<EventoStock, double, QQueryOperations>
       quantityThatFinishedProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'quantityThatFinished');

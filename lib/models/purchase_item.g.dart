@@ -9,13 +9,13 @@ part of 'purchase_item.dart';
 // coverage:ignore-file
 // ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters, always_specify_types
 
-extension GetPurchaseItemCollection on Isar {
-  IsarCollection<PurchaseItem> get purchaseItems => this.collection();
+extension GetItemCompraCollection on Isar {
+  IsarCollection<ItemCompra> get itemCompras => this.collection();
 }
 
-const PurchaseItemSchema = CollectionSchema(
-  name: r'PurchaseItem',
-  id: 5460643161202212317,
+const ItemCompraSchema = CollectionSchema(
+  name: r'ItemCompra',
+  id: -7130793001652479359,
   properties: {
     r'date': PropertySchema(
       id: 0,
@@ -38,22 +38,22 @@ const PurchaseItemSchema = CollectionSchema(
       type: IsarType.double,
     )
   },
-  estimateSize: _purchaseItemEstimateSize,
-  serialize: _purchaseItemSerialize,
-  deserialize: _purchaseItemDeserialize,
-  deserializeProp: _purchaseItemDeserializeProp,
+  estimateSize: _itemCompraEstimateSize,
+  serialize: _itemCompraSerialize,
+  deserialize: _itemCompraDeserialize,
+  deserializeProp: _itemCompraDeserializeProp,
   idName: r'id',
   indexes: {},
   links: {},
   embeddedSchemas: {},
-  getId: _purchaseItemGetId,
-  getLinks: _purchaseItemGetLinks,
-  attach: _purchaseItemAttach,
+  getId: _itemCompraGetId,
+  getLinks: _itemCompraGetLinks,
+  attach: _itemCompraAttach,
   version: '3.1.0+1',
 );
 
-int _purchaseItemEstimateSize(
-  PurchaseItem object,
+int _itemCompraEstimateSize(
+  ItemCompra object,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
@@ -61,8 +61,8 @@ int _purchaseItemEstimateSize(
   return bytesCount;
 }
 
-void _purchaseItemSerialize(
-  PurchaseItem object,
+void _itemCompraSerialize(
+  ItemCompra object,
   IsarWriter writer,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
@@ -73,13 +73,13 @@ void _purchaseItemSerialize(
   writer.writeDouble(offsets[3], object.quantity);
 }
 
-PurchaseItem _purchaseItemDeserialize(
+ItemCompra _itemCompraDeserialize(
   Id id,
   IsarReader reader,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  final object = PurchaseItem();
+  final object = ItemCompra();
   object.date = reader.readDateTime(offsets[0]);
   object.id = id;
   object.price = reader.readDouble(offsets[1]);
@@ -88,7 +88,7 @@ PurchaseItem _purchaseItemDeserialize(
   return object;
 }
 
-P _purchaseItemDeserializeProp<P>(
+P _itemCompraDeserializeProp<P>(
   IsarReader reader,
   int propertyId,
   int offset,
@@ -108,31 +108,30 @@ P _purchaseItemDeserializeProp<P>(
   }
 }
 
-Id _purchaseItemGetId(PurchaseItem object) {
+Id _itemCompraGetId(ItemCompra object) {
   return object.id;
 }
 
-List<IsarLinkBase<dynamic>> _purchaseItemGetLinks(PurchaseItem object) {
+List<IsarLinkBase<dynamic>> _itemCompraGetLinks(ItemCompra object) {
   return [];
 }
 
-void _purchaseItemAttach(
-    IsarCollection<dynamic> col, Id id, PurchaseItem object) {
+void _itemCompraAttach(IsarCollection<dynamic> col, Id id, ItemCompra object) {
   object.id = id;
 }
 
-extension PurchaseItemQueryWhereSort
-    on QueryBuilder<PurchaseItem, PurchaseItem, QWhere> {
-  QueryBuilder<PurchaseItem, PurchaseItem, QAfterWhere> anyId() {
+extension ItemCompraQueryWhereSort
+    on QueryBuilder<ItemCompra, ItemCompra, QWhere> {
+  QueryBuilder<ItemCompra, ItemCompra, QAfterWhere> anyId() {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(const IdWhereClause.any());
     });
   }
 }
 
-extension PurchaseItemQueryWhere
-    on QueryBuilder<PurchaseItem, PurchaseItem, QWhereClause> {
-  QueryBuilder<PurchaseItem, PurchaseItem, QAfterWhereClause> idEqualTo(Id id) {
+extension ItemCompraQueryWhere
+    on QueryBuilder<ItemCompra, ItemCompra, QWhereClause> {
+  QueryBuilder<ItemCompra, ItemCompra, QAfterWhereClause> idEqualTo(Id id) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IdWhereClause.between(
         lower: id,
@@ -141,8 +140,7 @@ extension PurchaseItemQueryWhere
     });
   }
 
-  QueryBuilder<PurchaseItem, PurchaseItem, QAfterWhereClause> idNotEqualTo(
-      Id id) {
+  QueryBuilder<ItemCompra, ItemCompra, QAfterWhereClause> idNotEqualTo(Id id) {
     return QueryBuilder.apply(this, (query) {
       if (query.whereSort == Sort.asc) {
         return query
@@ -164,8 +162,7 @@ extension PurchaseItemQueryWhere
     });
   }
 
-  QueryBuilder<PurchaseItem, PurchaseItem, QAfterWhereClause> idGreaterThan(
-      Id id,
+  QueryBuilder<ItemCompra, ItemCompra, QAfterWhereClause> idGreaterThan(Id id,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
@@ -174,7 +171,7 @@ extension PurchaseItemQueryWhere
     });
   }
 
-  QueryBuilder<PurchaseItem, PurchaseItem, QAfterWhereClause> idLessThan(Id id,
+  QueryBuilder<ItemCompra, ItemCompra, QAfterWhereClause> idLessThan(Id id,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
@@ -183,7 +180,7 @@ extension PurchaseItemQueryWhere
     });
   }
 
-  QueryBuilder<PurchaseItem, PurchaseItem, QAfterWhereClause> idBetween(
+  QueryBuilder<ItemCompra, ItemCompra, QAfterWhereClause> idBetween(
     Id lowerId,
     Id upperId, {
     bool includeLower = true,
@@ -200,9 +197,9 @@ extension PurchaseItemQueryWhere
   }
 }
 
-extension PurchaseItemQueryFilter
-    on QueryBuilder<PurchaseItem, PurchaseItem, QFilterCondition> {
-  QueryBuilder<PurchaseItem, PurchaseItem, QAfterFilterCondition> dateEqualTo(
+extension ItemCompraQueryFilter
+    on QueryBuilder<ItemCompra, ItemCompra, QFilterCondition> {
+  QueryBuilder<ItemCompra, ItemCompra, QAfterFilterCondition> dateEqualTo(
       DateTime value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
@@ -212,8 +209,7 @@ extension PurchaseItemQueryFilter
     });
   }
 
-  QueryBuilder<PurchaseItem, PurchaseItem, QAfterFilterCondition>
-      dateGreaterThan(
+  QueryBuilder<ItemCompra, ItemCompra, QAfterFilterCondition> dateGreaterThan(
     DateTime value, {
     bool include = false,
   }) {
@@ -226,7 +222,7 @@ extension PurchaseItemQueryFilter
     });
   }
 
-  QueryBuilder<PurchaseItem, PurchaseItem, QAfterFilterCondition> dateLessThan(
+  QueryBuilder<ItemCompra, ItemCompra, QAfterFilterCondition> dateLessThan(
     DateTime value, {
     bool include = false,
   }) {
@@ -239,7 +235,7 @@ extension PurchaseItemQueryFilter
     });
   }
 
-  QueryBuilder<PurchaseItem, PurchaseItem, QAfterFilterCondition> dateBetween(
+  QueryBuilder<ItemCompra, ItemCompra, QAfterFilterCondition> dateBetween(
     DateTime lower,
     DateTime upper, {
     bool includeLower = true,
@@ -256,7 +252,7 @@ extension PurchaseItemQueryFilter
     });
   }
 
-  QueryBuilder<PurchaseItem, PurchaseItem, QAfterFilterCondition> idEqualTo(
+  QueryBuilder<ItemCompra, ItemCompra, QAfterFilterCondition> idEqualTo(
       Id value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
@@ -266,7 +262,7 @@ extension PurchaseItemQueryFilter
     });
   }
 
-  QueryBuilder<PurchaseItem, PurchaseItem, QAfterFilterCondition> idGreaterThan(
+  QueryBuilder<ItemCompra, ItemCompra, QAfterFilterCondition> idGreaterThan(
     Id value, {
     bool include = false,
   }) {
@@ -279,7 +275,7 @@ extension PurchaseItemQueryFilter
     });
   }
 
-  QueryBuilder<PurchaseItem, PurchaseItem, QAfterFilterCondition> idLessThan(
+  QueryBuilder<ItemCompra, ItemCompra, QAfterFilterCondition> idLessThan(
     Id value, {
     bool include = false,
   }) {
@@ -292,7 +288,7 @@ extension PurchaseItemQueryFilter
     });
   }
 
-  QueryBuilder<PurchaseItem, PurchaseItem, QAfterFilterCondition> idBetween(
+  QueryBuilder<ItemCompra, ItemCompra, QAfterFilterCondition> idBetween(
     Id lower,
     Id upper, {
     bool includeLower = true,
@@ -309,7 +305,7 @@ extension PurchaseItemQueryFilter
     });
   }
 
-  QueryBuilder<PurchaseItem, PurchaseItem, QAfterFilterCondition> priceEqualTo(
+  QueryBuilder<ItemCompra, ItemCompra, QAfterFilterCondition> priceEqualTo(
     double value, {
     double epsilon = Query.epsilon,
   }) {
@@ -322,8 +318,7 @@ extension PurchaseItemQueryFilter
     });
   }
 
-  QueryBuilder<PurchaseItem, PurchaseItem, QAfterFilterCondition>
-      priceGreaterThan(
+  QueryBuilder<ItemCompra, ItemCompra, QAfterFilterCondition> priceGreaterThan(
     double value, {
     bool include = false,
     double epsilon = Query.epsilon,
@@ -338,7 +333,7 @@ extension PurchaseItemQueryFilter
     });
   }
 
-  QueryBuilder<PurchaseItem, PurchaseItem, QAfterFilterCondition> priceLessThan(
+  QueryBuilder<ItemCompra, ItemCompra, QAfterFilterCondition> priceLessThan(
     double value, {
     bool include = false,
     double epsilon = Query.epsilon,
@@ -353,7 +348,7 @@ extension PurchaseItemQueryFilter
     });
   }
 
-  QueryBuilder<PurchaseItem, PurchaseItem, QAfterFilterCondition> priceBetween(
+  QueryBuilder<ItemCompra, ItemCompra, QAfterFilterCondition> priceBetween(
     double lower,
     double upper, {
     bool includeLower = true,
@@ -372,8 +367,8 @@ extension PurchaseItemQueryFilter
     });
   }
 
-  QueryBuilder<PurchaseItem, PurchaseItem, QAfterFilterCondition>
-      productIdEqualTo(int value) {
+  QueryBuilder<ItemCompra, ItemCompra, QAfterFilterCondition> productIdEqualTo(
+      int value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'productId',
@@ -382,7 +377,7 @@ extension PurchaseItemQueryFilter
     });
   }
 
-  QueryBuilder<PurchaseItem, PurchaseItem, QAfterFilterCondition>
+  QueryBuilder<ItemCompra, ItemCompra, QAfterFilterCondition>
       productIdGreaterThan(
     int value, {
     bool include = false,
@@ -396,8 +391,7 @@ extension PurchaseItemQueryFilter
     });
   }
 
-  QueryBuilder<PurchaseItem, PurchaseItem, QAfterFilterCondition>
-      productIdLessThan(
+  QueryBuilder<ItemCompra, ItemCompra, QAfterFilterCondition> productIdLessThan(
     int value, {
     bool include = false,
   }) {
@@ -410,8 +404,7 @@ extension PurchaseItemQueryFilter
     });
   }
 
-  QueryBuilder<PurchaseItem, PurchaseItem, QAfterFilterCondition>
-      productIdBetween(
+  QueryBuilder<ItemCompra, ItemCompra, QAfterFilterCondition> productIdBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -428,8 +421,7 @@ extension PurchaseItemQueryFilter
     });
   }
 
-  QueryBuilder<PurchaseItem, PurchaseItem, QAfterFilterCondition>
-      quantityEqualTo(
+  QueryBuilder<ItemCompra, ItemCompra, QAfterFilterCondition> quantityEqualTo(
     double value, {
     double epsilon = Query.epsilon,
   }) {
@@ -442,7 +434,7 @@ extension PurchaseItemQueryFilter
     });
   }
 
-  QueryBuilder<PurchaseItem, PurchaseItem, QAfterFilterCondition>
+  QueryBuilder<ItemCompra, ItemCompra, QAfterFilterCondition>
       quantityGreaterThan(
     double value, {
     bool include = false,
@@ -458,8 +450,7 @@ extension PurchaseItemQueryFilter
     });
   }
 
-  QueryBuilder<PurchaseItem, PurchaseItem, QAfterFilterCondition>
-      quantityLessThan(
+  QueryBuilder<ItemCompra, ItemCompra, QAfterFilterCondition> quantityLessThan(
     double value, {
     bool include = false,
     double epsilon = Query.epsilon,
@@ -474,8 +465,7 @@ extension PurchaseItemQueryFilter
     });
   }
 
-  QueryBuilder<PurchaseItem, PurchaseItem, QAfterFilterCondition>
-      quantityBetween(
+  QueryBuilder<ItemCompra, ItemCompra, QAfterFilterCondition> quantityBetween(
     double lower,
     double upper, {
     bool includeLower = true,
@@ -495,180 +485,180 @@ extension PurchaseItemQueryFilter
   }
 }
 
-extension PurchaseItemQueryObject
-    on QueryBuilder<PurchaseItem, PurchaseItem, QFilterCondition> {}
+extension ItemCompraQueryObject
+    on QueryBuilder<ItemCompra, ItemCompra, QFilterCondition> {}
 
-extension PurchaseItemQueryLinks
-    on QueryBuilder<PurchaseItem, PurchaseItem, QFilterCondition> {}
+extension ItemCompraQueryLinks
+    on QueryBuilder<ItemCompra, ItemCompra, QFilterCondition> {}
 
-extension PurchaseItemQuerySortBy
-    on QueryBuilder<PurchaseItem, PurchaseItem, QSortBy> {
-  QueryBuilder<PurchaseItem, PurchaseItem, QAfterSortBy> sortByDate() {
+extension ItemCompraQuerySortBy
+    on QueryBuilder<ItemCompra, ItemCompra, QSortBy> {
+  QueryBuilder<ItemCompra, ItemCompra, QAfterSortBy> sortByDate() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'date', Sort.asc);
     });
   }
 
-  QueryBuilder<PurchaseItem, PurchaseItem, QAfterSortBy> sortByDateDesc() {
+  QueryBuilder<ItemCompra, ItemCompra, QAfterSortBy> sortByDateDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'date', Sort.desc);
     });
   }
 
-  QueryBuilder<PurchaseItem, PurchaseItem, QAfterSortBy> sortByPrice() {
+  QueryBuilder<ItemCompra, ItemCompra, QAfterSortBy> sortByPrice() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'price', Sort.asc);
     });
   }
 
-  QueryBuilder<PurchaseItem, PurchaseItem, QAfterSortBy> sortByPriceDesc() {
+  QueryBuilder<ItemCompra, ItemCompra, QAfterSortBy> sortByPriceDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'price', Sort.desc);
     });
   }
 
-  QueryBuilder<PurchaseItem, PurchaseItem, QAfterSortBy> sortByProductId() {
+  QueryBuilder<ItemCompra, ItemCompra, QAfterSortBy> sortByProductId() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'productId', Sort.asc);
     });
   }
 
-  QueryBuilder<PurchaseItem, PurchaseItem, QAfterSortBy> sortByProductIdDesc() {
+  QueryBuilder<ItemCompra, ItemCompra, QAfterSortBy> sortByProductIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'productId', Sort.desc);
     });
   }
 
-  QueryBuilder<PurchaseItem, PurchaseItem, QAfterSortBy> sortByQuantity() {
+  QueryBuilder<ItemCompra, ItemCompra, QAfterSortBy> sortByQuantity() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'quantity', Sort.asc);
     });
   }
 
-  QueryBuilder<PurchaseItem, PurchaseItem, QAfterSortBy> sortByQuantityDesc() {
+  QueryBuilder<ItemCompra, ItemCompra, QAfterSortBy> sortByQuantityDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'quantity', Sort.desc);
     });
   }
 }
 
-extension PurchaseItemQuerySortThenBy
-    on QueryBuilder<PurchaseItem, PurchaseItem, QSortThenBy> {
-  QueryBuilder<PurchaseItem, PurchaseItem, QAfterSortBy> thenByDate() {
+extension ItemCompraQuerySortThenBy
+    on QueryBuilder<ItemCompra, ItemCompra, QSortThenBy> {
+  QueryBuilder<ItemCompra, ItemCompra, QAfterSortBy> thenByDate() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'date', Sort.asc);
     });
   }
 
-  QueryBuilder<PurchaseItem, PurchaseItem, QAfterSortBy> thenByDateDesc() {
+  QueryBuilder<ItemCompra, ItemCompra, QAfterSortBy> thenByDateDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'date', Sort.desc);
     });
   }
 
-  QueryBuilder<PurchaseItem, PurchaseItem, QAfterSortBy> thenById() {
+  QueryBuilder<ItemCompra, ItemCompra, QAfterSortBy> thenById() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.asc);
     });
   }
 
-  QueryBuilder<PurchaseItem, PurchaseItem, QAfterSortBy> thenByIdDesc() {
+  QueryBuilder<ItemCompra, ItemCompra, QAfterSortBy> thenByIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.desc);
     });
   }
 
-  QueryBuilder<PurchaseItem, PurchaseItem, QAfterSortBy> thenByPrice() {
+  QueryBuilder<ItemCompra, ItemCompra, QAfterSortBy> thenByPrice() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'price', Sort.asc);
     });
   }
 
-  QueryBuilder<PurchaseItem, PurchaseItem, QAfterSortBy> thenByPriceDesc() {
+  QueryBuilder<ItemCompra, ItemCompra, QAfterSortBy> thenByPriceDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'price', Sort.desc);
     });
   }
 
-  QueryBuilder<PurchaseItem, PurchaseItem, QAfterSortBy> thenByProductId() {
+  QueryBuilder<ItemCompra, ItemCompra, QAfterSortBy> thenByProductId() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'productId', Sort.asc);
     });
   }
 
-  QueryBuilder<PurchaseItem, PurchaseItem, QAfterSortBy> thenByProductIdDesc() {
+  QueryBuilder<ItemCompra, ItemCompra, QAfterSortBy> thenByProductIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'productId', Sort.desc);
     });
   }
 
-  QueryBuilder<PurchaseItem, PurchaseItem, QAfterSortBy> thenByQuantity() {
+  QueryBuilder<ItemCompra, ItemCompra, QAfterSortBy> thenByQuantity() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'quantity', Sort.asc);
     });
   }
 
-  QueryBuilder<PurchaseItem, PurchaseItem, QAfterSortBy> thenByQuantityDesc() {
+  QueryBuilder<ItemCompra, ItemCompra, QAfterSortBy> thenByQuantityDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'quantity', Sort.desc);
     });
   }
 }
 
-extension PurchaseItemQueryWhereDistinct
-    on QueryBuilder<PurchaseItem, PurchaseItem, QDistinct> {
-  QueryBuilder<PurchaseItem, PurchaseItem, QDistinct> distinctByDate() {
+extension ItemCompraQueryWhereDistinct
+    on QueryBuilder<ItemCompra, ItemCompra, QDistinct> {
+  QueryBuilder<ItemCompra, ItemCompra, QDistinct> distinctByDate() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'date');
     });
   }
 
-  QueryBuilder<PurchaseItem, PurchaseItem, QDistinct> distinctByPrice() {
+  QueryBuilder<ItemCompra, ItemCompra, QDistinct> distinctByPrice() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'price');
     });
   }
 
-  QueryBuilder<PurchaseItem, PurchaseItem, QDistinct> distinctByProductId() {
+  QueryBuilder<ItemCompra, ItemCompra, QDistinct> distinctByProductId() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'productId');
     });
   }
 
-  QueryBuilder<PurchaseItem, PurchaseItem, QDistinct> distinctByQuantity() {
+  QueryBuilder<ItemCompra, ItemCompra, QDistinct> distinctByQuantity() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'quantity');
     });
   }
 }
 
-extension PurchaseItemQueryProperty
-    on QueryBuilder<PurchaseItem, PurchaseItem, QQueryProperty> {
-  QueryBuilder<PurchaseItem, int, QQueryOperations> idProperty() {
+extension ItemCompraQueryProperty
+    on QueryBuilder<ItemCompra, ItemCompra, QQueryProperty> {
+  QueryBuilder<ItemCompra, int, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'id');
     });
   }
 
-  QueryBuilder<PurchaseItem, DateTime, QQueryOperations> dateProperty() {
+  QueryBuilder<ItemCompra, DateTime, QQueryOperations> dateProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'date');
     });
   }
 
-  QueryBuilder<PurchaseItem, double, QQueryOperations> priceProperty() {
+  QueryBuilder<ItemCompra, double, QQueryOperations> priceProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'price');
     });
   }
 
-  QueryBuilder<PurchaseItem, int, QQueryOperations> productIdProperty() {
+  QueryBuilder<ItemCompra, int, QQueryOperations> productIdProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'productId');
     });
   }
 
-  QueryBuilder<PurchaseItem, double, QQueryOperations> quantityProperty() {
+  QueryBuilder<ItemCompra, double, QQueryOperations> quantityProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'quantity');
     });
