@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'database_service.dart';
+import 'screens/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
-  // Inicializa o Isar
   await DatabaseService().init();
-  
   runApp(const MercadoInteligente());
 }
 
@@ -16,14 +14,13 @@ class MercadoInteligente extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Mercado Inteligente',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green, brightness: Brightness.light),
         useMaterial3: true,
       ),
-      home: const Scaffold(
-        body: Center(child: Text('Banco de Dados Pronto!')),
-      ),
+      home: const HomeScreen(),
     );
   }
 }
