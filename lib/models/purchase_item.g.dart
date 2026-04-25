@@ -15,7 +15,7 @@ extension GetItemCompraCollection on Isar {
 
 const ItemCompraSchema = CollectionSchema(
   name: r'ItemCompra',
-  id: -7130793001652479359,
+  id: -7130793001652478976,
   properties: {
     r'date': PropertySchema(
       id: 0,

@@ -1,4 +1,3 @@
-// ignore_for_file: type=lint
 import 'package:isar/isar.dart';
 
 part 'product.g.dart';

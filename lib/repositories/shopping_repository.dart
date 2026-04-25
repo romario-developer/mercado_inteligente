@@ -7,18 +7,16 @@ import '../models/stock_event.dart';
 class ShoppingRepository {
   final isar = DatabaseService().isar;
 
-  // Adicionar um novo artigo ao catálogo
   Future<void> addProduct(String name, String unit) async {
-    final product = Artigo() // CORRIGIDO: Nome da classe
+    final product = Artigo()
       ..name = name
       ..unit = unit;
     
     await isar.writeTxn(() async {
-      await isar.artigos.put(product); // CORRIGIDO: nome da coleção
+      await isar.artigos.put(product);
     });
   }
 
-  // Registrar uma nova compra
   Future<void> recordPurchase(int productId, double quantity, double price) async {
     final purchase = ItemCompra()
       ..productId = productId
@@ -31,7 +29,6 @@ class ShoppingRepository {
     });
   }
 
-  // Marcar que um produto acabou
   Future<void> markAsFinished(int productId) async {
     final lastPurchase = await isar.itemCompras
         .filter()
@@ -58,16 +55,16 @@ class ShoppingRepository {
     final double tcd = lastPurchase.quantity / duration;
     final suggested = tcd * 30;
 
-    final product = await isar.artigos.get(productId); // CORRIGIDO: coleção artigos
+    final product = await isar.artigos.get(productId);
     if (product != null) {
       product.suggestedQuantity = suggested;
       await isar.writeTxn(() async {
-        await isar.artigos.put(product); // CORRIGIDO: coleção artigos
+        await isar.artigos.put(product);
       });
     }
   }
 
-  Future<List<Artigo>> getAllProducts() async { // CORRIGIDO: Tipo de retorno
-    return await isar.artigos.where().findAll(); // CORRIGIDO: coleção artigos
+  Future<List<Artigo>> getAllProducts() async {
+    return await isar.artigos.where().findAll();
   }
 }

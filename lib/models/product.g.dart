@@ -15,7 +15,7 @@ extension GetArtigoCollection on Isar {
 
 const ArtigoSchema = CollectionSchema(
   name: r'Artigo',
-  id: 8617419891327417065,
+  id: 8617419891327417344,
   properties: {
     r'name': PropertySchema(
       id: 0,
@@ -40,7 +40,7 @@ const ArtigoSchema = CollectionSchema(
   idName: r'id',
   indexes: {
     r'name': IndexSchema(
-      id: 879695947855722453,
+      id: 879695947855722496,
       name: r'name',
       unique: true,
       replace: false,

@@ -15,7 +15,7 @@ extension GetEventoStockCollection on Isar {
 
 const EventoStockSchema = CollectionSchema(
   name: r'EventoStock',
-  id: 4038691043353875876,
+  id: 4038691043353875968,
   properties: {
     r'dateFinished': PropertySchema(
       id: 0,

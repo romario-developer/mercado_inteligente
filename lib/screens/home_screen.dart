@@ -11,7 +11,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final ShoppingRepository _repository = ShoppingRepository();
-  List<Artigo> _products = []; // CORRIGIDO: de Produto para Artigo
+  List<Artigo> _products = [];
 
   @override
   void initState() {
@@ -58,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void _showRecordPurchaseDialog(Artigo product) { // CORRIGIDO: Artigo
+  void _showRecordPurchaseDialog(Artigo product) {
     final qtyController = TextEditingController();
     final priceController = TextEditingController();
 
@@ -106,13 +106,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: ListTile(
                     title: Text(product.name),
                     subtitle: Text(product.suggestedQuantity != null 
-                        ? 'Sugestão: ${product.suggestedQuantity!.toStringAsFixed(1)} ${product.unit}' 
-                        : 'Sem histórico'),
+                        ? 'Sugestão: ${product.suggestedQuantity!.toStringAsFixed(1)}' 
+                        : 'Sem dados'),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        IconButton(icon: const Icon(Icons.shopping_cart, color: Colors.green), onPressed: () => _showRecordPurchaseDialog(product)),
-                        IconButton(icon: const Icon(Icons.outbox, color: Colors.red), onPressed: () async {
+                        IconButton(icon: const Icon(Icons.shopping_cart), onPressed: () => _showRecordPurchaseDialog(product)),
+                        IconButton(icon: const Icon(Icons.outbox), onPressed: () async {
                           await _repository.markAsFinished(product.id);
                           _refreshProducts();
                         }),

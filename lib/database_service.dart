@@ -1,5 +1,6 @@
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:flutter/foundation.dart' show kIsWeb; // Importante: permite saber se estamos na Web
 import 'models/product.dart';
 import 'models/purchase_item.dart';
 import 'models/stock_event.dart';
@@ -12,11 +13,19 @@ class DatabaseService {
   DatabaseService._internal();
 
   Future<void> init() async {
-    final dir = await getApplicationDocumentsDirectory();
-    
+    String dirPath = '';
+
+    // Só busca o diretório físico se NÃO estiver rodando na Web
+    if (!kIsWeb) {
+      final dir = await getApplicationDocumentsDirectory();
+      dirPath = dir.path;
+    }
+
+    // Inicializa o banco de dados
     isar = await Isar.open(
-      [ArtigoSchema, ItemCompraSchema, EventoStockSchema], // CORRIGIDO
-      directory: dir.path,
+      [ArtigoSchema, ItemCompraSchema, EventoStockSchema],
+      // Na Web, o Isar ignora essa string e usa o IndexedDB do navegador automaticamente
+      directory: dirPath, 
     );
   }
 }
