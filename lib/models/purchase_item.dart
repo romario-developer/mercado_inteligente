@@ -1,14 +1,20 @@
-// ignore_for_file: type=lint
-import 'package:isar/isar.dart';
+import 'package:hive/hive.dart';
 
 part 'purchase_item.g.dart';
 
-@collection
-class ItemCompra { // Mudei o nome aqui
-  Id id = Isar.autoIncrement;
-  
-  late int productId;
-  late double quantity;
-  late double price;
-  late DateTime date;
+@HiveType(typeId: 1)
+class ItemCompra extends HiveObject {
+  @HiveField(0)
+  dynamic artigoKey;
+
+  @HiveField(1)
+  double quantity;
+
+  @HiveField(2)
+  double price;
+
+  @HiveField(3)
+  DateTime date;
+
+  ItemCompra({required this.artigoKey, required this.quantity, required this.price, required this.date});
 }

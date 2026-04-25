@@ -1,31 +1,25 @@
-import 'package:isar/isar.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:flutter/foundation.dart' show kIsWeb; // Importante: permite saber se estamos na Web
+import 'package:hive_flutter/hive_flutter.dart';
 import 'models/product.dart';
 import 'models/purchase_item.dart';
 import 'models/stock_event.dart';
 
 class DatabaseService {
-  late Isar isar;
-
   static final DatabaseService _instance = DatabaseService._internal();
   factory DatabaseService() => _instance;
   DatabaseService._internal();
 
   Future<void> init() async {
-    String dirPath = '';
+    // Inicializa o Hive focado no ambiente que estiver rodando (Web ou Mobile)
+    await Hive.initFlutter();
+    
+    // Registra os adaptadores gerados
+    Hive.registerAdapter(ArtigoAdapter());
+    Hive.registerAdapter(ItemCompraAdapter());
+    Hive.registerAdapter(EventoStockAdapter());
 
-    // Só busca o diretório físico se NÃO estiver rodando na Web
-    if (!kIsWeb) {
-      final dir = await getApplicationDocumentsDirectory();
-      dirPath = dir.path;
-    }
-
-    // Inicializa o banco de dados
-    isar = await Isar.open(
-      [ArtigoSchema, ItemCompraSchema, EventoStockSchema],
-      // Na Web, o Isar ignora essa string e usa o IndexedDB do navegador automaticamente
-      directory: dirPath, 
-    );
+    // Abre as "caixas" (equivalente às coleções)
+    await Hive.openBox<Artigo>('artigos');
+    await Hive.openBox<ItemCompra>('itemCompras');
+    await Hive.openBox<EventoStock>('eventoStocks');
   }
 }

@@ -80,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
               final qty = double.tryParse(qtyController.text) ?? 0;
               final price = double.tryParse(priceController.text) ?? 0;
               if (qty > 0) {
-                await _repository.recordPurchase(product.id, qty, price);
+                await _repository.recordPurchase(product.key, qty, price); // AQUI USA .key
                 _refreshProducts();
               }
               Navigator.pop(context);
@@ -106,14 +106,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: ListTile(
                     title: Text(product.name),
                     subtitle: Text(product.suggestedQuantity != null 
-                        ? 'Sugestão: ${product.suggestedQuantity!.toStringAsFixed(1)}' 
-                        : 'Sem dados'),
+                        ? 'Sugestão p/ mês: ${product.suggestedQuantity!.toStringAsFixed(1)} ${product.unit}' 
+                        : 'Sem histórico de consumo'),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        IconButton(icon: const Icon(Icons.shopping_cart), onPressed: () => _showRecordPurchaseDialog(product)),
-                        IconButton(icon: const Icon(Icons.outbox), onPressed: () async {
-                          await _repository.markAsFinished(product.id);
+                        IconButton(icon: const Icon(Icons.shopping_cart, color: Colors.green), onPressed: () => _showRecordPurchaseDialog(product)),
+                        IconButton(icon: const Icon(Icons.outbox, color: Colors.red), onPressed: () async {
+                          await _repository.markAsFinished(product.key); // AQUI USA .key
                           _refreshProducts();
                         }),
                       ],
