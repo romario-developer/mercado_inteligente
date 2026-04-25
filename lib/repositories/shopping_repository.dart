@@ -1,60 +1,88 @@
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:isar/isar.dart';
+import '../database_service.dart';
 import '../models/product.dart';
 import '../models/purchase_item.dart';
 import '../models/stock_event.dart';
 
 class ShoppingRepository {
-  final boxArtigos = Hive.box<Artigo>('artigos');
-  final boxCompras = Hive.box<ItemCompra>('itemCompras');
-  final boxEventos = Hive.box<EventoStock>('eventoStocks');
+  // Acessa a instância do Isar que foi aberta no main.dart
+  final isar = DatabaseService().isar;
 
   Future<void> addProduct(String name, String unit) async {
-    final artigo = Artigo(name: name, unit: unit);
-    await boxArtigos.add(artigo); // O Hive gera a key inteira automaticamente
+    // Usando o construtor com parâmetros obrigatórios conforme seu modelo
+    final product = Artigo(name: name, unit: unit);
+    
+    await isar.writeTxn(() async {
+      await isar.artigos.put(product);
+    });
   }
 
-  Future<void> recordPurchase(dynamic artigoKey, double quantity, double price) async {
-    final compra = ItemCompra(
-      artigoKey: artigoKey,
+  Future<void> recordPurchase(int productId, double quantity, double price) async {
+    final purchase = ItemCompra(
+      artigoKey: productId, // O erro indicou que o nome do parâmetro é artigoKey
       quantity: quantity,
       price: price,
       date: DateTime.now(),
     );
-    await boxCompras.add(compra);
+
+    await isar.writeTxn(() async {
+      await isar.itemCompras.put(purchase);
+    });
   }
 
-  Future<void> markAsFinished(dynamic artigoKey) async {
-    // Pega todas as compras do artigo e ordena da mais recente para a mais antiga
-    final comprasDoArtigo = boxCompras.values.where((c) => c.artigoKey == artigoKey).toList();
-    if (comprasDoArtigo.isEmpty) return;
+  Future<void> markAsFinished(int productId) async {
+    final lastPurchase = await isar.itemCompras
+        .filter()
+        .artigoKeyEqualTo(productId)
+        .sortByDateDesc()
+        .findFirst();
 
-    comprasDoArtigo.sort((a, b) => b.date.compareTo(a.date));
-    final lastPurchase = comprasDoArtigo.first;
+    if (lastPurchase == null) return;
 
-    final evento = EventoStock(
-      artigoKey: artigoKey,
+    final event = EventoStock(
+      artigoKey: productId,
       dateFinished: DateTime.now(),
       quantityThatFinished: lastPurchase.quantity,
     );
-    await boxEventos.add(evento);
 
-    await _updateProductPrediction(artigoKey, lastPurchase, evento);
+    await isar.writeTxn(() async {
+      await isar.eventoStocks.put(event);
+      await _updateProductPrediction(productId, lastPurchase, event);
+    });
   }
 
-  Future<void> _updateProductPrediction(dynamic artigoKey, ItemCompra lastPurchase, EventoStock event) async {
+  Future<void> _updateProductPrediction(int productId, ItemCompra lastPurchase, EventoStock event) async {
     final daysUsed = event.dateFinished.difference(lastPurchase.date).inDays;
     final duration = daysUsed > 0 ? daysUsed : 1;
     final double tcd = lastPurchase.quantity / duration;
     final suggested = tcd * 30;
 
-    final artigo = boxArtigos.get(artigoKey);
-    if (artigo != null) {
-      artigo.suggestedQuantity = suggested;
-      await artigo.save(); // A mágica do HiveObject: salva as alterações diretamente
+    final product = await isar.artigos.get(productId);
+    if (product != null) {
+      product.suggestedQuantity = suggested;
+      await isar.writeTxn(() async {
+        await isar.artigos.put(product);
+      });
     }
   }
 
   Future<List<Artigo>> getAllProducts() async {
-    return boxArtigos.values.toList();
+    return await isar.artigos.where().findAll();
+  }
+
+  Future<List<ItemCompra>> getPurchaseHistory(int productId) async {
+    return await isar.itemCompras
+        .filter()
+        .artigoKeyEqualTo(productId)
+        .sortByDateDesc()
+        .findAll();
+  }
+
+  Future<List<EventoStock>> getStockHistory(int productId) async {
+    return await isar.eventoStocks
+        .filter()
+        .artigoKeyEqualTo(productId)
+        .sortByDateFinishedDesc()
+        .findAll();
   }
 }
