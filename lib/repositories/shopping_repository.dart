@@ -1,88 +1,70 @@
-import 'package:isar/isar.dart';
-import '../database_service.dart';
+import 'package:hive/hive.dart';
 import '../models/product.dart';
 import '../models/purchase_item.dart';
 import '../models/stock_event.dart';
 
 class ShoppingRepository {
-  // Acessa a instância do Isar que foi aberta no main.dart
-  final isar = DatabaseService().isar;
+  // Acessa as boxes abertas no DatabaseService.init()
+  Box<Artigo> get _artigos => Hive.box<Artigo>('artigos');
+  Box<ItemCompra> get _itemCompras => Hive.box<ItemCompra>('itemCompras');
+  Box<EventoStock> get _eventoStocks => Hive.box<EventoStock>('eventoStocks');
 
   Future<void> addProduct(String name, String unit) async {
-    // Usando o construtor com parâmetros obrigatórios conforme seu modelo
     final product = Artigo(name: name, unit: unit);
-    
-    await isar.writeTxn(() async {
-      await isar.artigos.put(product);
-    });
+    await _artigos.add(product);
   }
 
-  Future<void> recordPurchase(int productId, double quantity, double price) async {
+  Future<void> recordPurchase(dynamic productKey, double quantity, double price) async {
     final purchase = ItemCompra(
-      artigoKey: productId, // O erro indicou que o nome do parâmetro é artigoKey
+      artigoKey: productKey,
       quantity: quantity,
       price: price,
       date: DateTime.now(),
     );
-
-    await isar.writeTxn(() async {
-      await isar.itemCompras.put(purchase);
-    });
+    await _itemCompras.add(purchase);
   }
 
-  Future<void> markAsFinished(int productId) async {
-    final lastPurchase = await isar.itemCompras
-        .filter()
-        .artigoKeyEqualTo(productId)
-        .sortByDateDesc()
-        .findFirst();
-
-    if (lastPurchase == null) return;
+  Future<void> markAsFinished(dynamic productKey) async {
+    final purchases = getPurchaseHistory(productKey);
+    if (purchases.isEmpty) return;
+    final lastPurchase = purchases.first;
 
     final event = EventoStock(
-      artigoKey: productId,
+      artigoKey: productKey,
       dateFinished: DateTime.now(),
       quantityThatFinished: lastPurchase.quantity,
     );
+    await _eventoStocks.add(event);
 
-    await isar.writeTxn(() async {
-      await isar.eventoStocks.put(event);
-      await _updateProductPrediction(productId, lastPurchase, event);
-    });
+    await _updateProductPrediction(productKey, lastPurchase, event);
   }
 
-  Future<void> _updateProductPrediction(int productId, ItemCompra lastPurchase, EventoStock event) async {
+  Future<void> _updateProductPrediction(dynamic productKey, ItemCompra lastPurchase, EventoStock event) async {
     final daysUsed = event.dateFinished.difference(lastPurchase.date).inDays;
     final duration = daysUsed > 0 ? daysUsed : 1;
-    final double tcd = lastPurchase.quantity / duration;
+    final double tcd = lastPurchase.quantity / duration; // taxa de consumo diário
     final suggested = tcd * 30;
 
-    final product = await isar.artigos.get(productId);
+    final product = _artigos.get(productKey);
     if (product != null) {
       product.suggestedQuantity = suggested;
-      await isar.writeTxn(() async {
-        await isar.artigos.put(product);
-      });
+      await product.save();
     }
   }
 
-  Future<List<Artigo>> getAllProducts() async {
-    return await isar.artigos.where().findAll();
+  List<Artigo> getAllProducts() {
+    return _artigos.values.toList();
   }
 
-  Future<List<ItemCompra>> getPurchaseHistory(int productId) async {
-    return await isar.itemCompras
-        .filter()
-        .artigoKeyEqualTo(productId)
-        .sortByDateDesc()
-        .findAll();
+  List<ItemCompra> getPurchaseHistory(dynamic productKey) {
+    final list = _itemCompras.values.where((i) => i.artigoKey == productKey).toList();
+    list.sort((a, b) => b.date.compareTo(a.date));
+    return list;
   }
 
-  Future<List<EventoStock>> getStockHistory(int productId) async {
-    return await isar.eventoStocks
-        .filter()
-        .artigoKeyEqualTo(productId)
-        .sortByDateFinishedDesc()
-        .findAll();
+  List<EventoStock> getStockHistory(dynamic productKey) {
+    final list = _eventoStocks.values.where((e) => e.artigoKey == productKey).toList();
+    list.sort((a, b) => b.dateFinished.compareTo(a.dateFinished));
+    return list;
   }
 }

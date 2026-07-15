@@ -10,13 +10,10 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
-  # Substituindo Isar pelo Hive (Padrão ouro para Flutter Web)
+  # Hive: padrão estável para persistência local em Flutter Web (IndexedDB)
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   intl: ^0.20.2
-  isar: ^2.1.4
-  isar_flutter_libs: ^2.1.4
-  path_provider: ^2.0.15
 
 dev_dependencies:
   flutter_test:

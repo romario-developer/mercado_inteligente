@@ -20,10 +20,9 @@ class _HomeScreenState extends State<HomeScreen> {
     _refreshProducts();
   }
 
-  Future<void> _refreshProducts() async {
-    final products = await _repository.getAllProducts();
+  void _refreshProducts() {
     setState(() {
-      _products = products;
+      _products = _repository.getAllProducts();
     });
   }
 
@@ -48,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
             onPressed: () async {
               if (nameController.text.isNotEmpty) {
                 await _repository.addProduct(nameController.text, unitController.text);
-                Navigator.pop(context);
+                if (context.mounted) Navigator.pop(context);
                 _refreshProducts();
               }
             },
@@ -89,8 +88,8 @@ class _HomeScreenState extends State<HomeScreen> {
               final qty = double.tryParse(qtyController.text) ?? 0;
               final price = double.tryParse(priceController.text) ?? 0;
               if (qty > 0) {
-                await _repository.recordPurchase(product.id, qty, price);
-                Navigator.pop(context);
+                await _repository.recordPurchase(product.key, qty, price);
+                if (context.mounted) Navigator.pop(context);
                 _refreshProducts();
               }
             },
@@ -158,7 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               Expanded(
                                 child: FilledButton.icon(
                                   onPressed: () async {
-                                    await _repository.markAsFinished(product.id);
+                                    await _repository.markAsFinished(product.key);
                                     _refreshProducts();
                                     if (context.mounted) {
                                       ScaffoldMessenger.of(context).showSnackBar(
