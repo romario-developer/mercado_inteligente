@@ -1,11 +1,11 @@
 {
-    "name": "mercado_inteligente",
-    "short_name": "mercado_inteligente",
+    "name": "Mercado Inteligente",
+    "short_name": "Mercado",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#F1F8F2",
+    "theme_color": "#2E7D32",
+    "description": "Controle inteligente da sua despensa: registre compras, dê baixa e receba sugestões de consumo mensal.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
